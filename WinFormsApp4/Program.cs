@@ -1,3 +1,5 @@
+using WinFormsApp2;
+
 namespace Sudoku
 {
     internal static class Program
