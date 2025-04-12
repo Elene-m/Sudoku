@@ -1,10 +1,9 @@
+using WinFormsApp2;
 namespace Sudoku
 {
     public partial class Form1 : Form
     {
-
-        int[,] rowCombinations = new int[4, 4]
-        {
+        int[,] rowCombinations = new int[4, 4]{
             { 1,2,3,4 }, // 0
             { 5,6,7,8 },
             { 9,10,11,12 }, // 12 - [2,3]  i = 2  j = 3 
@@ -24,22 +23,18 @@ namespace Sudoku
             { 9,10,13,14 },
             { 11,12,15,16 }
         };
-        string[] puzzle1demo = new string[16]
-        {
-            "2", "", "", "",
-            "",  "1", "3",  "",
-            "3",  "",  "", "1",
-            "",  "2", "4",  ""
-        };
+        string[] puzzle = new string[16];
+        
         public Form1()
         {
             InitializeComponent();
-            SetPuzzle(puzzle1demo);
+            puzzle = Puzzle.GetPuzzle();
+            SetPuzzle(puzzle);
         }
+
         public void SetPuzzle(string[] puzzle)
         {
             List<TextBox> textBoxlist = new List<TextBox>();
-
             foreach (Control control in this.Controls)
             {
                 if (control is TextBox textBox)
@@ -47,13 +42,14 @@ namespace Sudoku
                     textBoxlist.Add(textBox);
                 }
             }
-
             for (int i = 0; i < textBoxlist.Count; i++)
             {
-                textBoxlist[i].Enabled = puzzle[i] == "";
+                var enabled = puzzle[i] == "";
+                textBoxlist[i].Enabled = enabled;
                 textBoxlist[i].Text = puzzle[i];
             }
         }
+
         private void OnChanged(object sender, EventArgs e)
         {
             SetTextBoxDefaultColor();
@@ -76,7 +72,6 @@ namespace Sudoku
                         {
                             textBox.ForeColor = Color.Red;
                             SetTextBoxesDisabled(textBox);
-                            CheckWinner();
                             return;
                         }
                     }
@@ -93,7 +88,6 @@ namespace Sudoku
                         {
                             textBox.ForeColor = Color.Red;
                             SetTextBoxesDisabled(textBox);
-                            CheckWinner();
                             return;
                         }
                     }
@@ -110,15 +104,15 @@ namespace Sudoku
                         {
                             textBox.ForeColor = Color.Red;
                             SetTextBoxesDisabled(textBox);
-                            CheckWinner();
                             return;
                         }
                     }
                 }
             }
-            SetTextBoxesEnabled(puzzle1demo);
-            CheckWinner();
+            SetTextBoxesEnabled(puzzle);
+            GameOverCheck();
         }
+
         private bool CheckCombination(int[,] combinations, int rowIndex, TextBox textBox)
         {
             int count = 0;
@@ -136,6 +130,7 @@ namespace Sudoku
             }
             return count > 1;
         }
+
         private void SetTextBoxDefaultColor()
         {
             foreach (Control control in this.Controls)
@@ -146,8 +141,7 @@ namespace Sudoku
                 }
             }
         }
-        // parametrad mowodebuli textBoxes garda yvela
-        // textbox unda iyos disabled
+
         private void SetTextBoxesDisabled(TextBox textBox)
         {
             foreach (Control control in this.Controls)
@@ -158,9 +152,36 @@ namespace Sudoku
                     {
                         textBox1.Enabled = false;
                     }
-
                 }
+            }
+        }
 
+        private void GameOverCheck()
+        {
+            bool allTextBoxesFilled = true;
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox textBoxControl)
+                {
+                    if (textBoxControl.Text == "")
+                    {
+                        allTextBoxesFilled = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (allTextBoxesFilled)
+            {
+                foreach (Control control in this.Controls)
+                {
+                    if (control is TextBox textBoxControl)
+                    {
+                        textBoxControl.Enabled = false;
+                    }
+                }
+                Winner.Text = "Congratulations!";
+                Winner.Visible = true;
             }
         }
 
@@ -179,55 +200,12 @@ namespace Sudoku
             for (int i = 0; i < textBoxlist.Count; i++)
             {
                 textBoxlist[i].Enabled = puzzle[i] == "";
-
-            }
-            CheckWinner();
-        }
-
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
-            CheckWinner();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Winner.Visible = false;
-
-            foreach (Control control in this.Controls)
-            {
-                if (control is TextBox textBox)
-                {
-                    textBox.TextChanged += textBox_TextChanged;
-                }
             }
         }
 
-        private void CheckWinner()
+        private void Restartbutton_Click(object sender, EventArgs e)
         {
-            bool allFilled = true;
-            bool allNotRed = true;
-
-            foreach (Control control in this.Controls)
-            {
-                if (control is TextBox textBox)
-                {
-
-                    if (string.IsNullOrWhiteSpace(textBox.Text))
-                    {
-                        allFilled = false;
-                    }
-
-                    if (textBox.BackColor == Color.Red)
-                    {
-                        allNotRed = false;
-                    }
-                }
-            }
-            if (allFilled && allNotRed)
-            {
-                Winner.Visible = true;
-            }
-
+            Application.Restart();
         }
     }
 }
