@@ -1,60 +1,31 @@
-﻿
 namespace Sudoku
-
+{
+    partial class Form1
     {
+        /// <summary>
+        ///  Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-        partial class Form1
-
+        /// <summary>
+        ///  Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-
-            /// <summary>
-
-            ///  Required designer variable.
-
-            /// </summary>
-
-            private System.ComponentModel.IContainer components = null;
-
-
-            /// <summary>
-
-            ///  Clean up any resources being used.
-
-            /// </summary>
-
-            /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-
-            protected override void Dispose(bool disposing)
-
+            if (disposing && (components != null))
             {
-
-                if (disposing && (components != null))
-
-                {
-
-                    components.Dispose();
-
-                }
-
-                base.Dispose(disposing);
-
+                components.Dispose();
             }
-
+            base.Dispose(disposing);
+        }
 
         #region Windows Form Designer generated code
 
-
         /// <summary>
-
         ///  Required method for Designer support - do not modify
-
         ///  the contents of this method with the code editor.
-
         /// </summary>
-
-        //this.textBox1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
-
-
         private void InitializeComponent()
         {
             textBox1 = new TextBox();
@@ -76,6 +47,7 @@ namespace Sudoku
             lineHorisontal = new Label();
             lineVertical = new Label();
             Winner = new Label();
+            Restartbutton = new Button();
             SuspendLayout();
             // 
             // textBox1
@@ -314,20 +286,32 @@ namespace Sudoku
             // Winner
             // 
             Winner.AutoSize = true;
-            Winner.Font = new Font("Microsoft Himalaya", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Winner.Font = new Font("SimSun", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Winner.Location = new Point(336, 9);
             Winner.Margin = new Padding(2, 0, 2, 0);
             Winner.Name = "Winner";
-            Winner.Size = new Size(166, 80);
+            Winner.Size = new Size(239, 80);
             Winner.TabIndex = 0;
             Winner.Text = "Win!!";
             Winner.Visible = false;
+            // 
+            // Restartbutton
+            // 
+            Restartbutton.Font = new Font("SimSun", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Restartbutton.Location = new Point(621, 13);
+            Restartbutton.Name = "Restartbutton";
+            Restartbutton.Size = new Size(172, 59);
+            Restartbutton.TabIndex = 39;
+            Restartbutton.Text = "Restart";
+            Restartbutton.UseVisualStyleBackColor = true;
+            Restartbutton.Click += Restartbutton_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(848, 742);
+            Controls.Add(Restartbutton);
             Controls.Add(Winner);
             Controls.Add(lineVertical);
             Controls.Add(lineHorisontal);
@@ -354,48 +338,27 @@ namespace Sudoku
             PerformLayout();
         }
 
-
         #endregion
 
-
         private TextBox textBox7;
-
-            private TextBox textBox4;
-
-            private TextBox textBox5;
-
-            private TextBox textBox12;
-
-            private TextBox textBox2;
-
-            private TextBox textBox15;
-
-            private TextBox textBox14;
-
-            private TextBox textBox13;
-
-            private TextBox textBox1;
-
-            private TextBox textBox11;
-
-            private TextBox textBox3;
-
-            private TextBox textBox6;
-
-            private TextBox textBox9;
-
-            private TextBox textBox16;
-
-            private TextBox textBox8;
-
-            private TextBox textBox10;
-
-            private Label lineHorisontal;
-
-            private Label lineVertical;
-
-            private Label Winner;
-
-        }
-
+        private TextBox textBox4;
+        private TextBox textBox5;
+        private TextBox textBox12;
+        private TextBox textBox2;
+        private TextBox textBox15;
+        private TextBox textBox14;
+        private TextBox textBox13;
+        private TextBox textBox1;
+        private TextBox textBox11;
+        private TextBox textBox3;
+        private TextBox textBox6;
+        private TextBox textBox9;
+        private TextBox textBox16;
+        private TextBox textBox8;
+        private TextBox textBox10;
+        private Label lineHorisontal;
+        private Label lineVertical;
+        private Label Winner;
+        private Button Restartbutton;
     }
+}
